@@ -1,0 +1,5 @@
+When the ultrawide camera serves as the primary camera, the secondary camera ideally should have a larger field of view (FOV) than the ultrawide. However, due to current hardware limitations in smartphones, we don't yet have a camera with a FOV larger than the ultrawide lens.
+
+Instead, we can utilize the wide-angle lens as the secondary frame. By doing this, any distortions or "bubbles" captured by the ultrawide lens that fall within the FOV of the wide-angle lens can be corrected or removed using algorithms like LRAID. This is possible because the secondary frame from the wide-angle lens covers only a portion of the ultrawide's FOV.
+
+Furthermore, lens reflection artifacts that may appear in the ultrawide shots will be positioned differently in the wide-angle shots, allowing for easier correction and enhancement.
