@@ -1,0 +1,3 @@
+The yellow line represents an out-of-focus projection that doesn't create the lens reflection bubble artifact. This distinction is crucial because the idea of using a reference lens to determine the lens reflection's position originates from this observation. The angle of internal reflection varies based on the physical differences in camera positions between the wide and ultrawide lenses of a phone. As a result, an unfocused projection can sometimes occur where the lens reflection artifact is entirely absent in the reference lens due to changes in the reflection angle.
+
+On the other hand, the red line illustrates the lens reflection caused by internal reflections within the lens itself. This creates a bubble artifact that diminishes the image quality.
