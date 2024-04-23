@@ -1,0 +1,15 @@
+Sure, thresholding high luminance objects in images involves determining a pixel intensity level above which a pixel is considered to belong to the high luminance object. Here's how you might approach this for outdoor, office, and night light scenarios:
+
+1. **Outdoor Scenario:**
+   - **Characteristics:** Generally, outdoor scenes have a wide range of luminance due to the sun's intensity and shadows.
+   - **Thresholding:** You might use a higher threshold to capture the high luminance objects. Since outdoor scenes often have bright highlights, you could set a threshold that captures pixels with intensities above a certain high value, say 200 out of 255.
+
+2. **Office Scenario:**
+   - **Characteristics:** Office lighting tends to be more consistent and controlled compared to outdoors, but it can still have varying levels of brightness due to overhead lights, computer screens, and windows.
+   - **Thresholding:** A moderate threshold could work here. You might consider using a value around 150 to 180 out of 255 to capture high luminance objects without including too many mid-range values from office equipment.
+
+3. **Night Light Scenario:**
+   - **Characteristics:** Night scenes have low overall luminance with isolated bright spots from streetlights, signs, or headlights.
+   - **Thresholding:** A lower threshold would be appropriate for this scenario to capture the relatively brighter objects against the dark background. A threshold value around 100 to 120 out of 255 might work well.
+
+Remember, these values are just starting points and may need to be adjusted based on the specific image and the desired results. It's often helpful to visualize the histogram of pixel intensities in the image to help determine suitable threshold values.
