@@ -1,0 +1,35 @@
+Dynamic thresholding adjusts the threshold value based on the image content rather than using a fixed value. Here's how you can dynamically threshold high luminance objects in the mentioned scenarios:
+
+1. **Outdoor Scenario: Adaptive Thresholding**
+   - **Adaptive Thresholding:** Use adaptive thresholding techniques like Adaptive Mean or Gaussian Thresholding. These methods compute the threshold for a pixel based on the mean or Gaussian-weighted mean of its neighboring pixels.
+   - **OpenCV Example:**
+     ```python
+     import cv2
+     img = cv2.imread('outdoor.jpg', 0)
+     adaptive_thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+     ```
+
+2. **Office Scenario: Otsu's Method**
+   - **Otsu's Method:** This method automatically calculates an optimal threshold by maximizing the variance between two classes of pixels.
+   - **OpenCV Example:**
+     ```python
+     import cv2
+     img = cv2.imread('office.jpg', 0)
+     _, otsu_thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+     ```
+
+3. **Night Light Scenario: Adaptive Thresholding with Gaussian**
+   - **Adaptive Thresholding with Gaussian:** Use Adaptive Gaussian Thresholding to handle the varying luminance levels effectively.
+   - **OpenCV Example:**
+     ```python
+     import cv2
+     img = cv2.imread('night.jpg', 0)
+     adaptive_gaussian_thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+     ```
+
+In these methods:
+- **cv2.ADAPTIVE_THRESH_MEAN_C** and **cv2.ADAPTIVE_THRESH_GAUSSIAN_C** determine the method used for adaptive thresholding.
+- The parameters **11** and **2** are the block size and the constant subtracted from the mean or weighted mean, respectively, in the adaptive thresholding methods.
+- **cv2.THRESH_BINARY** sets the type of thresholding to binary.
+
+By using these dynamic thresholding methods, you can adaptively determine the threshold based on the image content, which can lead to better segmentation results across different lighting conditions.
