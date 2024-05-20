@@ -1,0 +1,67 @@
+#include <opencv2/opencv.hpp>
+#include <vector>
+
+struct ObjectData {
+    cv::Rect bbox;
+};
+
+std::vector<ObjectData> adjustBboxesToAspectRatio(const std::vector<ObjectData>& objects, int img_width, int img_height) {
+    std::vector<ObjectData> adjusted_objects;
+    double aspect_ratio_width = 4.0; // Target aspect ratio width
+    double aspect_ratio_height = 3.0; // Target aspect ratio height
+
+    for (const auto& obj : objects) {
+        const cv::Rect& bbox = obj.bbox;
+
+        // Calculate the current center of the bounding box
+        int x_center = bbox.x + bbox.width / 2;
+        int y_center = bbox.y + bbox.height / 2;
+
+        // Calculate the target width and height based on the desired aspect ratio
+        double target_width = bbox.width;
+        double target_height = bbox.height;
+
+        if (static_cast<double>(bbox.width) / bbox.height > aspect_ratio_width / aspect_ratio_height) {
+            // Adjust height to match the aspect ratio
+            target_height = bbox.width * aspect_ratio_height / aspect_ratio_width;
+        } else {
+            // Adjust width to match the aspect ratio
+            target_width = bbox.height * aspect_ratio_width / aspect_ratio_height;
+        }
+
+        // Calculate the new top-left coordinates to keep the object centered
+        int new_x_min = x_center - target_width / 2;
+        int new_y_min = y_center - target_height / 2;
+
+        // Ensure the new bounding box fits within the image boundaries
+        new_x_min = std::max(0, new_x_min);
+        new_y_min = std::max(0, new_y_min);
+        if (new_x_min + target_width > img_width) {
+            target_width = img_width - new_x_min;
+        }
+        if (new_y_min + target_height > img_height) {
+            target_height = img_height - new_y_min;
+        }
+
+        // Store the adjusted bounding box
+        adjusted_objects.push_back({cv::Rect(new_x_min, new_y_min, target_width, target_height)});
+    }
+
+    return adjusted_objects;
+}
+
+int main() {
+    // Example usage
+    std::vector<ObjectData> objects = {{{100, 100, 50, 50}}}; // Example coordinates from YOLOv5
+    int img_width = 640;  // Image width
+    int img_height = 480; // Image height
+
+    std::vector<ObjectData> new_objects = adjustBboxesToAspectRatio(objects, img_width, img_height);
+    
+    // Print the new coordinates
+    for (const auto& obj : new_objects) {
+        std::cout << "New bbox: x=" << obj.bbox.x << ", y=" << obj.bbox.y << ", width=" << obj.bbox.width << ", height=" << obj.bbox.height << std::endl;
+    }
+
+    return 0;
+}
